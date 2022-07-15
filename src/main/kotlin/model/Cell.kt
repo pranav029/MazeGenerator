@@ -8,4 +8,16 @@ data class Cell(
     var current: Boolean = false,
     var done: Boolean = false,
     var visited: Boolean = false,
-)
+    var shortPath: Boolean = false
+) {
+    fun reset() {
+        leftWall = true
+        rightWall = true
+        topWall = true
+        bottomWall = true
+        current = false
+        done = false
+        visited = false
+        shortPath = false
+    }
+}

@@ -26,7 +26,7 @@ fun DrawCells(
         for (i in 0 until mazeSize) {
             for (j in 0 until mazeSize) {
                 //Left
-                if (list[i][j].leftWall || j == 0) {
+                if (list[i][j].leftWall ) {
                     drawLine(
                         start = Offset(x = (j * height), y = (i * height)),
                         end = Offset(x = (j * height), y = (i * height) + height),
@@ -35,7 +35,7 @@ fun DrawCells(
                     )
                 }
 //                //Top
-                if (list[i][j].topWall || i == 0) {
+                if (list[i][j].topWall) {
                     drawLine(
                         start = Offset(x = (j * height), y = (i * height)),
                         end = Offset(x = (j * height) + height, y = (i * height)),
@@ -44,7 +44,7 @@ fun DrawCells(
                     )
                 }
 //                //Right
-                if (list[i][j].rightWall || j == mazeSize - 1) {
+                if (list[i][j].rightWall) {
                     drawLine(
                         start = Offset(x = (j * height) + height, y = (i * height)),
                         end = Offset(x = (j * height) + height, y = (i * height) + height),
@@ -53,7 +53,7 @@ fun DrawCells(
                     )
                 }
 //                //Bottom
-                if (list[i][j].bottomWall || i == mazeSize - 1) {
+                if (list[i][j].bottomWall ) {
                     drawLine(
                         start = Offset(x = (j * height), y = (i * height) + height),
                         end = Offset(x = (j * height) + height, y = (i * height) + height),
@@ -63,11 +63,25 @@ fun DrawCells(
                 }
 
                 //Rect Fill
-                drawRect(
-                    color = if (list[i][j].current) Color.Red else if (list[i][j].done) Color.Cyan else Color.White,
-                    topLeft = Offset(x = (j * height), y = (i * height)),
-                    size = Size(height, height)
-                )
+//                val t = list[i][j].leftWall && list[i][j].rightWall && list[i][j].topWall && list[i][j].bottomWall
+//               drawRect(
+//                    color = if (list[i][j].current) Color.Red else if (list[i][j].done) Color.Cyan else Color.White,
+//                    topLeft = Offset(x = (j * height), y = (i * height)),
+//                    size = Size(height, height)
+//                )
+                if(list[i][j].shortPath){
+                    drawRect(
+                        color = Color.Yellow,
+                        topLeft = Offset(x = (j * height), y = (i * height)),
+                        size = Size(height, height)
+                    )
+                }else{
+                    drawRect(
+                        color = if (list[i][j].current) Color.Red else if (list[i][j].done) Color.Cyan else Color.White,
+                        topLeft = Offset(x = (j * height), y = (i * height)),
+                        size = Size(height, height)
+                    )
+                }
 
             }
         }
