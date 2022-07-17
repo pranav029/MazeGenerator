@@ -11,13 +11,13 @@ data class Cell(
     var shortPath: Boolean = false
 ) {
     fun reset() {
-        leftWall = true
-        rightWall = true
-        topWall = true
-        bottomWall = true
-        current = false
-        done = false
-        visited = false
-        shortPath = false
+        this.leftWall = true
+        this.rightWall = true
+        this.topWall = true
+        this.bottomWall = true
+        this.current = false
+        this.done = false
+        this.visited = false
+        this.shortPath = false
     }
 }

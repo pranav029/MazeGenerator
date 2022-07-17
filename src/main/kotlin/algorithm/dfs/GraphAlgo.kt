@@ -1,12 +1,13 @@
-package algorithm
+package algorithm.dfs
 
-import kotlinx.coroutines.delay
+import callbacks.GenerateDataCallback
 import kotlinx.coroutines.flow.flow
 import model.Cell
 
 class GraphAlgo(
     private var cells: ArrayList<ArrayList<Cell>>,
-    private val size: Int
+    private val size: Int,
+    private val mListener: GenerateDataCallback
 ) {
     private lateinit var mStack: ArrayList<Pair<Int, Int>>
 
@@ -19,7 +20,7 @@ class GraphAlgo(
     }
 
 
-    fun generate() = flow {
+    suspend fun generate()  {
         cells[0][0].visited = true
         push(0, 0)
         while (mStack.isNotEmpty()) {
@@ -34,13 +35,11 @@ class GraphAlgo(
                 it.removeWall(x, y)
                 cells[it.first][it.second].visited = true
                 cells[it.first][it.second].current = true
-                delay(100)
-                emit(cells)
+                mListener.onNewDataGenerate(cells)
             }
             if (mStack.isEmpty()) {
                 cells[x][y].current = true
-                delay(100)
-                emit(cells)
+                mListener.onNewDataGenerate(cells)
             }
         }
     }
@@ -97,5 +96,4 @@ class GraphAlgo(
             cells[this.first][this.second].topWall = false
         }
     }
-    fun reset() = initStack()
 }
